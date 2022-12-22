@@ -8,7 +8,7 @@ import AvailableAppointmentCard from './AvailableAppointmentCard';
 const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
     // const [appointmentData, setAppointmentData] = useState([]);
     const [treatment, setTreatment] = useState(null);
-    const date= format(selectedDate, 'PP');
+    const date = format(selectedDate, 'PP');
 
     // react query
     const { data: appointmentData = [], refetch, isLoading } = useQuery({
@@ -19,7 +19,7 @@ const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
             return data;
         }
     });
-    if(isLoading){
+    if (isLoading) {
         return <Loading></Loading>
     }
 

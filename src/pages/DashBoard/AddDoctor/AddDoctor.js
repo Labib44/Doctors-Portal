@@ -10,7 +10,7 @@ const AddDoctor = () => {
     // imgbb
     const imgHostKey = process.env.REACT_APP_IMGBB_KEY;
     // console.log(imgHostKey); 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const { data: specialtys, isLoading } = useQuery({
         queryKey: ['specialty'],
@@ -25,7 +25,7 @@ const AddDoctor = () => {
         // console.log(data.img[0])
         const img = data.img[0];
         const formData = new FormData();
-        
+
         formData.append('image', img);
         const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
         fetch(url, {
@@ -38,28 +38,28 @@ const AddDoctor = () => {
                 if (imgData.success) {
                     // console.log(imgData.data.url);
 
-                    const doctor={
-                        name:data.name,
-                        email:data.email,
-                        specialty:data.specialty,
-                        img:imgData.data.url
+                    const doctor = {
+                        name: data.name,
+                        email: data.email,
+                        specialty: data.specialty,
+                        img: imgData.data.url
                     }
                     // save the doctors informetion to the database
-                    fetch('https://doctors-portal-server-ten-vert.vercel.app/doctors',{
-                        method:'POST',
-                        headers:{
-                            'content-type':'application/json',
-                            authorization:`bearer ${localStorage.getItem('accessToken')}`
+                    fetch('https://doctors-portal-server-ten-vert.vercel.app/doctors', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
-                        body:JSON.stringify(doctor)
+                        body: JSON.stringify(doctor)
                     })
-                    .then(res=>res.json())
-                    .then(result=>{
-                        console.log(result);
-                        toast.success(`${data.name} is Added Successfully`)
-                        navigate('/dashboard/managedoctors')
-                    })
-            
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            toast.success(`${data.name} is Added Successfully`)
+                            navigate('/dashboard/managedoctors')
+                        })
+
                 }
             })
     }

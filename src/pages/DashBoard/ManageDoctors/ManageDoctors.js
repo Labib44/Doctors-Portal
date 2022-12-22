@@ -8,7 +8,7 @@ const ManageDoctors = () => {
     const closeModal = () => {
         setDeletingDoctro(null);
     }
-  
+
     const { data: doctors, isLoading, refetch } = useQuery({
         queryKey: ['doctors'],
         queryFn: async () => {
@@ -37,8 +37,8 @@ const ManageDoctors = () => {
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
-                
-                if(data.deletedCount > 0){
+
+                if (data.deletedCount > 0) {
                     refetch();
                     toast.success(`Doctor ${doctor.name} deleted Successfully`)
                 }

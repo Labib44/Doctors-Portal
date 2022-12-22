@@ -4,51 +4,51 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
-    const {name: treatementName, slots, price}=treatment;
+    const { name: treatementName, slots, price } = treatment;
     const date = format(selectedDate, 'PP');
-    const {user}=useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     // console.log(user.displayName);
 
-    const handleBooking=(event)=>{
+    const handleBooking = (event) => {
         event.preventDefault()
-        const form=event.target;
-        const slot=form.slot.value;
-        const name=form.name.value;
-        const email=form.email.value;
-        const phnNumber=form.phnNumber.value;
+        const form = event.target;
+        const slot = form.slot.value;
+        const name = form.name.value;
+        const email = form.email.value;
+        const phnNumber = form.phnNumber.value;
 
-        const booking={
-            appointmentDate:date,
-            treatment:treatementName,
+        const booking = {
+            appointmentDate: date,
+            treatment: treatementName,
             slot,
-            patient:name,
+            patient: name,
             email,
             phnNumber,
             price
         }
         // console.log(booking);
 
-        fetch('https://doctors-portal-server-ten-vert.vercel.app/bookings',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
+        fetch('https://doctors-portal-server-ten-vert.vercel.app/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(booking)
+            body: JSON.stringify(booking)
         })
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            if(data.acknowledged){
-                setTreatment(null);
-                toast.success('Booking Confirmed')
-                refetch();
-            }
-            else{
-                toast.error('You alredy booked')
-            }
-           
-        })
-  
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    setTreatment(null);
+                    toast.success('Booking Confirmed')
+                    refetch();
+                }
+                else {
+                    toast.error('You alredy booked')
+                }
+
+            })
+
     }
 
     return (
@@ -58,13 +58,13 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
                 <div className="modal-box relative">
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">{treatementName}</h3>
-                    <form  onSubmit={handleBooking} className='grid grid-cols-1 gap-5 p-5'>
+                    <form onSubmit={handleBooking} className='grid grid-cols-1 gap-5 p-5'>
                         <input type="text" disabled value={date} className="input input-bordered input-success w-full " />
 
                         <select name='slot' className="select select-bordered select-success w-full ">
                             {/* i means id for key */}
                             {
-                                slots.map((slot, i)=> <option value={(slot)} key={i} selected>{slot}</option>)
+                                slots.map((slot, i) => <option value={(slot)} key={i} selected>{slot}</option>)
                             }
                         </select>
 

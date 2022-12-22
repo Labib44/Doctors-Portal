@@ -1,7 +1,7 @@
 import React from 'react';
 
-const InfoCard = ({card}) => {
-    const {id, name, discription, icon, bgClass}=card;
+const InfoCard = ({ card }) => {
+    const { id, name, discription, icon, bgClass } = card;
     return (
         <div className={`card p-5 m-3 text-white md:card-side shadow-xl ${bgClass}`}>
             <figure><img src={icon} alt="" /></figure>
